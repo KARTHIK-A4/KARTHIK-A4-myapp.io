@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "./Components/navbar";
 import Home from "./pages/home";
 import Login from "./pages/login";
-import Register from "./pages/Register";
+import Register from "./pages/register";
 import Dashboard from "./pages/dashboard";
 import axios from "axios";
 import { Toaster } from "react-hot-toast";
