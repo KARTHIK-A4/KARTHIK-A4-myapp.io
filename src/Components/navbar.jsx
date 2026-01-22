@@ -5,7 +5,7 @@ import "../assets/styles/Navbar.css";
 export default function Navbar() {
   return (
     <header className="navbar-header">
-      <h2 className="navbar-title">Service Request System</h2>
+      <h2 className="navbar-title">Service Flash ⚡</h2>
 
       <nav className="navbar-nav">
         <Link className="navbar-link" to="/">Home</Link>
