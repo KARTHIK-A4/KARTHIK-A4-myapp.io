@@ -35,6 +35,126 @@ export default function Home() {
       specs: "Ergonomic, 6 Buttons, RGB Lighting",
       description: "Premium wireless mouse with ergonomic design and customizable RGB",
       features: ["2.4GHz Wireless", "6 Programmable Buttons", "RGB Lighting", "1000 DPI"]
+    },
+    {
+      id: 4,
+      name: "ThinkStation X15",
+      category: "Laptops",
+      price: 1599,
+      image: "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=600&h=400&fit=crop&q=80",
+      specs: "Intel i9 14th Gen, 32GB RAM, 1TB SSD",
+      description: "High-performance business laptop for demanding professionals",
+      features: ["14th Gen Intel Core i9", "32GB DDR5 RAM", "1TB NVMe SSD", "16 inch 4K Display"]
+    },
+    {
+      id: 5,
+      name: "UltraSlim 13",
+      category: "Laptops",
+      price: 999,
+      image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&h=400&fit=crop&q=80",
+      specs: "Intel i5 12th Gen, 8GB RAM, 256GB SSD",
+      description: "Lightweight and portable laptop perfect for students and travelers",
+      features: ["12th Gen Intel Core i5", "8GB RAM", "256GB SSD", "13.3 inch FHD Display"]
+    },
+    {
+      id: 6,
+      name: "Creator Pro 17",
+      category: "Laptops",
+      price: 2299,
+      image: "https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=600&h=400&fit=crop&q=80",
+      specs: "Intel i9, 64GB RAM, RTX 4070, 2TB SSD",
+      description: "Professional workstation laptop for content creators and designers",
+      features: ["Intel Core i9", "64GB DDR5 RAM", "NVIDIA RTX 4070", "17.3 inch 4K OLED"]
+    },
+    {
+      id: 7,
+      name: "Workstation Elite",
+      category: "Desktops",
+      price: 2499,
+      image: "https://images.unsplash.com/photo-1593640408182-31c70c8268f5?w=600&h=400&fit=crop&q=80",
+      specs: "Intel Xeon, 64GB RAM, RTX A4000",
+      description: "Professional workstation for 3D rendering and video editing",
+      features: ["Intel Xeon W-2245", "64GB ECC RAM", "NVIDIA RTX A4000", "4TB NVMe Storage"]
+    },
+    {
+      id: 8,
+      name: "Compact Office PC",
+      category: "Desktops",
+      price: 699,
+      image: "https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=600&h=400&fit=crop&q=80",
+      specs: "Intel i5, 16GB RAM, 512GB SSD",
+      description: "Space-saving desktop perfect for office work and everyday computing",
+      features: ["Intel Core i5", "16GB RAM", "512GB SSD", "WiFi 6 & Bluetooth"]
+    },
+    {
+      id: 9,
+      name: "Mechanical Keyboard Pro",
+      category: "Accessories",
+      price: 129,
+      image: "https://images.unsplash.com/photo-1595225476474-87563907a212?w=600&h=400&fit=crop&q=80",
+      specs: "Cherry MX Switches, RGB Backlit, Aluminum Frame",
+      description: "Premium mechanical keyboard with customizable RGB lighting",
+      features: ["Cherry MX Red Switches", "Full RGB Backlight", "Aluminum Build", "Programmable Macros"]
+    },
+    {
+      id: 10,
+      name: "27-inch Monitor 4K",
+      category: "Accessories",
+      price: 449,
+      image: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600&h=400&fit=crop&q=80",
+      specs: "4K UHD, 144Hz, HDR400, IPS Panel",
+      description: "Professional 4K monitor with vibrant colors and smooth performance",
+      features: ["3840x2160 Resolution", "144Hz Refresh Rate", "HDR400", "99% sRGB Coverage"]
+    },
+    {
+      id: 11,
+      name: "Webcam HD Pro",
+      category: "Accessories",
+      price: 89,
+      image: "https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=600&h=400&fit=crop&q=80",
+      specs: "1080p 60fps, Auto-focus, Stereo Mic",
+      description: "Crystal clear webcam for professional video conferencing",
+      features: ["1080p at 60fps", "Auto-focus", "Dual Stereo Microphones", "Wide-angle Lens"]
+    },
+    {
+      id: 12,
+      name: "Tech Support Plus",
+      category: "Services",
+      price: 199,
+      image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=400&fit=crop&q=80",
+      specs: "1 Year Premium Support, 24/7 Help",
+      description: "Comprehensive technical support service for all your devices",
+      features: ["24/7 Phone Support", "Remote Assistance", "On-site Service", "Priority Response"]
+    },
+    {
+      id: 13,
+      name: "Data Backup Service",
+      category: "Services",
+      price: 149,
+      image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=600&h=400&fit=crop&q=80",
+      specs: "1TB Cloud Storage, Auto-backup",
+      description: "Secure cloud backup service to protect your important data",
+      features: ["1TB Cloud Storage", "Automatic Backups", "256-bit Encryption", "Easy Recovery"]
+    },
+    {
+      id: 14,
+      name: "Installation Service",
+      category: "Services",
+      price: 99,
+      image: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&h=400&fit=crop&q=80",
+      specs: "Software & Hardware Setup",
+      description: "Professional installation and setup service for your new equipment",
+      features: ["Hardware Installation", "Software Configuration", "Network Setup", "Training Session"]
+    },
+    {
+      id: 15,
+      name: "Extended Warranty",
+      category: "Services",
+      price: 249,
+      image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&h=400&fit=crop&q=80",
+      specs: "3 Years Coverage, Parts & Labor",
+      description: "Extended warranty protection for peace of mind",
+      features: ["3 Years Coverage", "Parts & Labor Included", "Accidental Damage", "Free Shipping"]
     }
   ];
 
@@ -129,8 +249,8 @@ const styles = {
   productsSection: { maxWidth: "1200px", margin: "0 auto", padding: "2rem 0" },
   productsTitle: { fontSize: "clamp(1.8rem, 4vw, 2.5rem)", fontWeight: "bold", marginBottom: "0.5rem" },
   productsDesc: { fontSize: "clamp(0.95rem, 2vw, 1.1rem)", color: "#cbd5e1", marginBottom: "2rem" },
-  categories: { display: "flex", justifyContent: "center", gap: "1rem", marginBottom: "2rem", flexWrap: "wrap" },
-  categoryBtn: { padding: "1rem 2.5rem", background: "rgba(255,255,255,0.2)", color: "white", border: "2px solid rgba(255,255,255,0.4)", borderRadius: "30px", cursor: "pointer", fontSize: "1.2rem", fontWeight: "600", transition: "all 0.3s" },
+  categories: { display: "flex", justifyContent: "center", gap: "0.8rem", marginBottom: "2rem", flexWrap: "wrap" },
+  categoryBtn: { padding: "0", height: "50px", width: "120px", background: "rgba(255,255,255,0.2)", color: "white", border: "2px solid rgba(255,255,255,0.4)", borderRadius: "25px", cursor: "pointer", fontSize: "0.9rem", fontWeight: "600", transition: "all 0.3s", display: "flex", alignItems: "center", justifyContent: "center" },
   activeBtn: { background: "#3b82f6", border: "2px solid #3b82f6", boxShadow: "0 6px 20px rgba(59,130,246,0.5)", transform: "scale(1.05)" },
   productGrid: { display: "flex", gap: "2rem", padding: "0 1rem", overflowX: "auto", justifyContent: "center", flexWrap: "wrap" },
   productCard: { minWidth: "320px", maxWidth: "320px", background: "rgba(255,255,255,0.15)", borderRadius: "15px", padding: "1.2rem", backdropFilter: "blur(10px)", border: "1px solid rgba(255,255,255,0.25)", cursor: "pointer", transition: "transform 0.3s" },
