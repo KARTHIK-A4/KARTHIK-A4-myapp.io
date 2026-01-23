@@ -38,7 +38,7 @@ export default function Home() {
     }
   ];
 
-  const backgroundImage = "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1920&h=1080&fit=crop&q=80";
+  const backgroundImage = "https://images.unsplash.com/photo-1531297484001-80022131f5a1";
 
   const filteredProducts = category === "All" ? products : products.filter(p => p.category === category);
 
