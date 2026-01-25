@@ -1,18 +1,16 @@
-import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./Components/navbar";
 import Home from "./pages/home";
 import Login from "./pages/login";
 import Register from "./pages/register";
-import Dashboard from "./pages/dashboard";
+
 import axios from "axios";
 import { Toaster } from "react-hot-toast";
-import { UserContextProvider } from "./context/UserContext";
+import { UserContextProvider } from "./context/usercontext";
 import { CartProvider } from "./context/CartContext";
+import CustomerDashboard from "./pages/CustomerDashboard";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 import Cart from "./pages/cart";
-
-axios.defaults.baseURL = "http://localhost:8000";
-axios.defaults.withCredentials = true;
 
 function App() {
   return (
@@ -24,7 +22,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<CustomerDashboard />} />
+          <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/cart" element={<Cart />} />
         </Routes>
       </CartProvider>

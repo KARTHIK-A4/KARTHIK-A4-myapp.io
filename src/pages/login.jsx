@@ -11,20 +11,24 @@ export default function Login() {
     password: '',
   });
 
-  const loginUser = async (e) => { 
+  const loginUser = async (e) => {
     e.preventDefault();
     const { email, password } = data;
     try {
-      const { data: response } = await axios.post('/login', { 
-        email, 
+      const { data: response } = await axios.post('/login', {
+        email,
         password
-      }); 
+      });
       if (response.error) {
         toast.error(response.error);
       } else {
         // ✅ keep the same shape so inputs remain controlled
         setData({ email: '', password: '' });
-        navigate('/dashboard');
+        if (response.role === 'admin') {
+          navigate('/admin');
+        } else {
+          navigate('/dashboard');
+        }
       }
     } catch (error) {
       console.error(error);

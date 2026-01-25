@@ -1,11 +1,43 @@
-import React from 'react';
 import { useCart } from '../context/CartContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from '../context/usercontext';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 export default function Cart() {
-    const { cartItems, removeFromCart, updateQuantity, getCartTotal } = useCart();
+    const { cartItems, removeFromCart, updateQuantity, getCartTotal, clearCart } = useCart();
+    const { user } = useContext(UserContext);
+    const navigate = useNavigate();
 
     const total = getCartTotal();
+
+    const handleCheckout = async () => {
+        if (!user) {
+            toast.error("Please login to checkout");
+            navigate('/login');
+            return;
+        }
+
+        try {
+            // Create a request for each item in the cart
+            for (const item of cartItems) {
+                await axios.post('/requests', {
+                    serviceType: item.name,
+                    description: `Order for ${item.name} - ${item.specs || 'No specs provided'}`,
+                    customerId: user.id,
+                    customerName: user.name
+                });
+            }
+
+            toast.success("Requests created successfully!");
+            clearCart();
+            navigate('/dashboard');
+        } catch (error) {
+            console.error(error);
+            toast.error("Failed to process checkout");
+        }
+    };
 
     if (cartItems.length === 0) {
         return (
@@ -82,7 +114,12 @@ export default function Cart() {
                         <span>${total.toFixed(2)}</span>
                     </div>
 
-                    <button style={styles.checkoutBtn}>Proceed to Checkout</button>
+                    <button
+                        style={styles.checkoutBtn}
+                        onClick={handleCheckout}
+                    >
+                        Proceed to Checkout
+                    </button>
                 </div>
             </div>
         </div>
