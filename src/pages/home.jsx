@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useCart } from "../context/CartContext";
 
 export default function Home() {
+  const { addToCart } = useCart();
   const [category, setCategory] = useState("All");
   const [selectedProduct, setSelectedProduct] = useState(null);
   const categories = ["All", "Laptops", "Desktops", "Accessories", "Services"];
@@ -166,19 +168,19 @@ export default function Home() {
     <main style={styles.main}>
       <img src={backgroundImage} alt="Service Home" style={styles.fullImage} />
       <div style={styles.darkOverlay}></div>
-      
+
       <div style={styles.overlay}>
         <h1 style={styles.title}>Welcome to Service Request System</h1>
         <p style={styles.subtitle}>This is the home page. Please register or login to continue.</p>
-        
+
         <div style={styles.productsSection}>
           <h2 style={styles.productsTitle}>Our Products</h2>
           <p style={styles.productsDesc}>Discover our wide range of electronics and services</p>
-          
+
           <div style={styles.categories}>
             {categories.map(cat => (
               <button key={cat} onClick={() => setCategory(cat)}
-                style={{...styles.categoryBtn, ...(category === cat ? styles.activeBtn : {})}}>
+                style={{ ...styles.categoryBtn, ...(category === cat ? styles.activeBtn : {}) }}>
                 {cat}
               </button>
             ))}
@@ -188,7 +190,7 @@ export default function Home() {
             {filteredProducts.map(product => (
               <div key={product.id} style={styles.productCard} onClick={() => setSelectedProduct(product)}>
                 <div style={styles.imgWrapper}>
-                  <img src={product.image} alt={product.name} style={styles.productImg}/>
+                  <img src={product.image} alt={product.name} style={styles.productImg} />
                 </div>
                 <h3 style={styles.productName}>{product.name}</h3>
                 <p style={styles.productSpecs}>{product.specs}</p>
@@ -204,19 +206,19 @@ export default function Home() {
         <div style={styles.modal} onClick={() => setSelectedProduct(null)}>
           <div style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
             <button style={styles.closeBtn} onClick={() => setSelectedProduct(null)}>✕</button>
-            
+
             <div style={styles.modalBody}>
               <div style={styles.modalImageSection}>
-                <img src={selectedProduct.image} alt={selectedProduct.name} style={styles.modalImage}/>
+                <img src={selectedProduct.image} alt={selectedProduct.name} style={styles.modalImage} />
               </div>
-              
+
               <div style={styles.modalInfo}>
                 <h2 style={styles.modalTitle}>{selectedProduct.name}</h2>
                 <p style={styles.modalCategory}>{selectedProduct.category}</p>
                 <p style={styles.modalPrice}>${selectedProduct.price}</p>
-                
+
                 <p style={styles.modalDesc}>{selectedProduct.description}</p>
-                
+
                 <div style={styles.featuresSection}>
                   <h3 style={styles.featuresTitle}>Key Features:</h3>
                   <ul style={styles.featuresList}>
@@ -225,9 +227,17 @@ export default function Home() {
                     ))}
                   </ul>
                 </div>
-                
+
                 <div style={styles.modalActions}>
-                  <button style={styles.addCartBtn}>Add to Cart</button>
+                  <button
+                    style={styles.addCartBtn}
+                    onClick={() => {
+                      addToCart(selectedProduct);
+                      setSelectedProduct(null);
+                    }}
+                  >
+                    Add to Cart
+                  </button>
                   <button style={styles.buyNowBtn}>Buy Now</button>
                 </div>
               </div>
