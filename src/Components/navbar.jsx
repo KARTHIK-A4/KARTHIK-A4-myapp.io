@@ -32,7 +32,6 @@ export default function Navbar() {
         <Link className="navbar-link" to="/">Home</Link>
         {!user && (
           <>
-            <Link className="navbar-link" to="/register">Register</Link>
             <Link className="navbar-link" to="/login">Login</Link>
           </>
         )}
