@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const cors = require('cors');
-const { test, registerUser, loginUser, getprofile } = require('../controllers/authController');
+const { test, registerUser, loginUser, getprofile, logoutUser } = require('../controllers/authController');
 const {
     createRequest,
     getRequests,
@@ -21,6 +21,7 @@ router.use(
 router.get('/', test);
 router.post('/register', registerUser);
 router.post('/login', loginUser);
+router.post('/logout', logoutUser);
 router.get('/profile', getprofile);
 
 // Service Request Routes

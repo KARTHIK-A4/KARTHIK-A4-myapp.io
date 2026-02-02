@@ -1,14 +1,28 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "../assets/styles/Navbar.css";
 import { useCart } from "../context/CartContext";
 import { UserContext } from "../context/usercontext";
-import { useContext } from "react";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 export default function Navbar() {
   const { getCartCount } = useCart();
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const cartCount = getCartCount();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await axios.post('/logout');
+      setUser(null);
+      toast.success("Logged out successfully");
+      navigate('/');
+    } catch (error) {
+      console.error(error);
+      toast.error("Logout failed");
+    }
+  };
 
   return (
     <header className="navbar-header" style={{ display: 'flex', justifyContent: 'space-between', padding: '1rem 2rem', alignItems: 'center' }}>
@@ -28,6 +42,23 @@ export default function Navbar() {
         {user && user.role === 'customer' && (
           <Link className="navbar-link" to="/dashboard">My Dashboard</Link>
         )}
+
+        {user && (
+          <button
+            onClick={handleLogout}
+            className="navbar-link"
+            style={{
+              background: 'transparent',
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: '1rem',
+              fontWeight: '500'
+            }}
+          >
+            Logout
+          </button>
+        )}
+
         <Link className="navbar-link" to="/cart" style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
           Cart
           {cartCount > 0 && (
