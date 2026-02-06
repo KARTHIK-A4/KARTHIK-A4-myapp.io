@@ -12,6 +12,8 @@ import CustomerDashboard from "./pages/CustomerDashboard";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import Cart from "./pages/cart";
 
+import Sales from "./pages/sales/Sales";
+
 function App() {
   return (
     <UserContextProvider>
@@ -20,6 +22,7 @@ function App() {
         <Toaster position="bottom-right" toastOptions={{ duration: 2000 }} />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/sales" element={<Sales />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<CustomerDashboard />} />

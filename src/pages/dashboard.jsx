@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "../context/usercontext";
 import "../assets/styles/dashboard.css";
 
 export default function Dashboard() {
