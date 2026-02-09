@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useCart } from "../../context/CartContext";
+import { useCart } from "../context/CartContext";
 
 export default function Sales() {
     const { addToCart } = useCart();

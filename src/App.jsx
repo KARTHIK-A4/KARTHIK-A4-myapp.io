@@ -12,7 +12,7 @@ import CustomerDashboard from "./pages/CustomerDashboard";
 import AdminDashboard from "./admin/AdminDashboard";
 import Cart from "./pages/cart";
 
-import Sales from "./pages/sales/Sales";
+import Sales from "./pages/Sales";
 
 function App() {
   return (
