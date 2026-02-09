@@ -9,7 +9,7 @@ import { Toaster } from "react-hot-toast";
 import { UserContextProvider } from "./context/usercontext";
 import { CartProvider } from "./context/CartContext";
 import CustomerDashboard from "./pages/CustomerDashboard";
-import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminDashboard from "./admin/AdminDashboard";
 import Cart from "./pages/cart";
 
 import Sales from "./pages/sales/Sales";

@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import { UserContext } from '../../context/usercontext';
+import { UserContext } from '../context/usercontext';
 import { toast } from 'react-hot-toast';
 
 export default function AdminDashboard() {
