@@ -13,6 +13,7 @@ import AdminDashboard from "./admin/AdminDashboard";
 import Cart from "./pages/cart";
 
 import Sales from "./pages/Sales";
+import Footer from "./Components/Footer";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
         </Routes>
       </CartProvider>
+      <Footer />
     </UserContextProvider>
   );
 }
