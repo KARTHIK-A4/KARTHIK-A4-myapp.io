@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { FaLinkedin, FaFacebook, FaEnvelope } from "react-icons/fa";
 
 const Footer = () => {
@@ -6,6 +7,7 @@ const Footer = () => {
         <footer style={styles.footer}>
             <div style={styles.container}>
                 <h3 style={styles.brand}>Service Request System</h3>
+                <Link to="/about" style={styles.link}>About Us</Link>
                 <div style={styles.socials}>
                     <a
                         href="https://www.linkedin.com"
@@ -76,6 +78,13 @@ const styles = {
         fontSize: "0.9rem",
         color: "#64748b",
         marginTop: "1rem",
+    },
+    link: {
+        color: "#94a3b8",
+        textDecoration: "none",
+        fontSize: "1rem",
+        marginBottom: "1rem",
+        transition: "color 0.3s ease",
     },
 };
 
