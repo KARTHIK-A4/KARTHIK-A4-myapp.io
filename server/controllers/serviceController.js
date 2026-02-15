@@ -5,10 +5,16 @@ const createRequest = async (req, res) => {
     try {
         const { serviceType, description, customerId, customerName } = req.body;
 
+        let attachments = [];
+        if (req.files && req.files.length > 0) {
+            attachments = req.files.map(file => file.path);
+        }
+
         const newRequest = await ServiceRequest.create({
             customer: customerId,
             serviceType,
             description,
+            attachments,
             messages: [{
                 sender: customerId,
                 name: customerName,

@@ -19,6 +19,7 @@ const serviceRequestSchema = new mongoose.Schema({
         enum: ['Requested', 'Accepted', 'Completed', 'Cancelled'],
         default: 'Requested'
     },
+    attachments: [String], // Array of file paths
     messages: [
         {
             sender: {

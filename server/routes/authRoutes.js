@@ -25,7 +25,8 @@ router.post('/logout', logoutUser);
 router.get('/profile', getprofile);
 
 // Service Request Routes
-router.post('/requests', createRequest);
+const upload = require('../middleware/upload');
+router.post('/requests', upload.array('attachments', 5), createRequest);
 router.get('/requests', getRequests);
 router.patch('/requests/:id/status', updateRequestStatus);
 router.post('/requests/:id/messages', addMessage);

@@ -41,7 +41,10 @@ export default function Navbar() {
           <Link className="navbar-link" to="/admin" style={{ fontWeight: 'bold', color: 'var(--primary)' }}>Admin Panel</Link>
         )}
         {user && user.role === 'customer' && (
-          <Link className="navbar-link" to="/dashboard">My Dashboard</Link>
+          <>
+            <Link className="navbar-link" to="/dashboard">My Dashboard</Link>
+            <Link className="navbar-link" to="/service-request">Request Service</Link>
+          </>
         )}
 
         {user && (
