@@ -195,20 +195,20 @@ export default function AdminDashboard() {
                                         <div
                                             key={idx}
                                             style={{
-                                                alignSelf: (msg.sender?._id || msg.sender) === user?.id ? 'flex-end' : 'flex-start',
+                                                alignSelf: (msg.sender?._id || msg.sender) === user.id ? 'flex-end' : 'flex-start',
                                                 maxWidth: '70%'
                                             }}
                                         >
                                             <div style={{
-                                                background: (msg.sender?._id || msg.sender) === user?.id ? '#3b82f6' : '#334155',
+                                                background: (msg.sender?._id || msg.sender) === user.id ? '#3b82f6' : '#334155',
                                                 padding: '0.75rem 1rem',
                                                 borderRadius: '12px',
-                                                borderBottomRightRadius: (msg.sender?._id || msg.sender) === user?.id ? '2px' : '12px',
-                                                borderBottomLeftRadius: (msg.sender?._id || msg.sender) !== user?.id ? '2px' : '12px',
+                                                borderBottomRightRadius: (msg.sender?._id || msg.sender) === user.id ? '2px' : '12px',
+                                                borderBottomLeftRadius: (msg.sender?._id || msg.sender) !== user.id ? '2px' : '12px',
                                             }}>
                                                 <p style={{ margin: 0 }}>{msg.text}</p>
                                             </div>
-                                            <span style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '0.25rem', display: 'block', textAlign: (msg.sender?._id || msg.sender) === user?.id ? 'right' : 'left' }}>
+                                            <span style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '0.25rem', display: 'block', textAlign: (msg.sender?._id || msg.sender) === user.id ? 'right' : 'left' }}>
                                                 {msg.name}
                                             </span>
                                         </div>
