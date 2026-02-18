@@ -1,0 +1,55 @@
+.home-main {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.home-full-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+.home-dark-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 1;
+}
+
+.home-overlay {
+  position: absolute;
+  z-index: 2;
+  color: white;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.home-title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: bold;
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.9);
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+}
+
+.home-subtitle {
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);
+  margin-bottom: 3rem;
+  color: #f1f5f9;
+}
