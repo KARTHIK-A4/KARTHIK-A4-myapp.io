@@ -23,6 +23,7 @@ function App() {
       <CartProvider>
         <Navbar />
         <Toaster position="bottom-right" toastOptions={{ duration: 2000 }} />
+        <div style={{ paddingTop: "50px" }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/sales" element={<Sales />} />
@@ -34,6 +35,7 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/service-request" element={<ServiceRequest />} />
         </Routes>
+        </div>
       </CartProvider>
       <Footer />
     </UserContextProvider>
