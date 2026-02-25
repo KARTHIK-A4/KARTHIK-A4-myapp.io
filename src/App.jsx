@@ -11,6 +11,7 @@ import { CartProvider } from "./context/CartContext";
 import CustomerDashboard from "./pages/CustomerDashboard";
 import AdminDashboard from "./admin/AdminDashboard";
 import Cart from "./pages/cart";
+import ProviderDashboard from "./pages/ProviderDashboard";
 
 import Sales from "./pages/Sales";
 import AboutUs from "./pages/AboutUs";
@@ -24,17 +25,18 @@ function App() {
         <Navbar />
         <Toaster position="bottom-right" toastOptions={{ duration: 2000 }} />
         <div style={{ paddingTop: "50px" }}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/sales" element={<Sales />} />
-          <Route path="/about" element={<AboutUs />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<CustomerDashboard />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/service-request" element={<ServiceRequest />} />
-        </Routes>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/sales" element={<Sales />} />
+            <Route path="/about" element={<AboutUs />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/dashboard" element={<CustomerDashboard />} />
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/provider" element={<ProviderDashboard />} />
+            <Route path="/service-request" element={<ServiceRequest />} />
+          </Routes>
         </div>
       </CartProvider>
       <Footer />

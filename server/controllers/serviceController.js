@@ -33,8 +33,7 @@ const getRequests = async (req, res) => {
     try {
         const { role, id } = req.query;
         let requests;
-
-        if (role === 'admin') {
+        if (role === 'admin' || role === 'provider') {
             requests = await ServiceRequest.find().populate('customer', 'name email').sort({ createdAt: -1 });
         } else {
             requests = await ServiceRequest.find({ customer: id }).sort({ createdAt: -1 });

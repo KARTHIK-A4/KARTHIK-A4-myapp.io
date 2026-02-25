@@ -10,7 +10,7 @@ const test = (req, res) => {
 // Register Endpoint
 const registerUser = async (req, res) => {
     try {
-        const { name, email, password } = req.body;
+        const { name, email, password, role } = req.body;
         // Check if name was entered
         if (!name) {
             return res.json({
@@ -33,15 +33,20 @@ const registerUser = async (req, res) => {
 
         const hashedPassword = await hashPassword(password);
 
+        // Determine user role
+        let userRole = role && ['customer', 'provider'].includes(role.toLowerCase()) ? role.toLowerCase() : 'customer';
+
         // Check if this is the admin email
-        const role = email === 'karthik321@gmail.com' ? 'admin' : 'customer';
+        if (email === 'karthik321@gmail.com') {
+            userRole = 'admin';
+        }
 
         //Create user in database
         const user = await User.create({
             name,
             email,
             password: hashedPassword,
-            role
+            role: userRole
         });
 
         return res.json(user);

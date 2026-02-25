@@ -29,6 +29,8 @@ export default function Login() {
         toast.success("Welcome back!");
         if (response.role === 'admin') {
           navigate('/admin');
+        } else if (response.role === 'provider') {
+          navigate('/provider');
         } else {
           navigate('/dashboard');
         }
@@ -47,7 +49,7 @@ export default function Login() {
         <div className="shape shape-1"></div>
         <div className="shape shape-2"></div>
       </div>
-      
+
       <form className="login-form glass-card" onSubmit={loginUser}>
         <div className="login-header">
           <h3>Welcome Back</h3>

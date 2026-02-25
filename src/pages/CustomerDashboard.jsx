@@ -123,18 +123,22 @@ export default function CustomerDashboard() {
                                     <div style={{ marginTop: '1rem' }}>
                                         <h4 style={{ fontSize: '0.9rem', marginBottom: '0.5rem' }}>Messages</h4>
                                         <div style={{ maxHeight: '120px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '0.4rem', padding: '0.5rem', background: 'rgba(0,0,0,0.1)', borderRadius: '8px' }}>
-                                            {req.messages.map((m, idx) => (
-                                                <div key={idx} style={{
-                                                    fontSize: '0.8rem',
-                                                    padding: '0.3rem 0.5rem',
-                                                    background: (m.sender?._id || m.sender) === user.id ? 'var(--primary)' : 'var(--surface)',
-                                                    borderRadius: '4px',
-                                                    alignSelf: (m.sender?._id || m.sender) === user.id ? 'flex-end' : 'flex-start',
-                                                    maxWidth: '80%'
-                                                }}>
-                                                    <strong>{m.name}: </strong> {m.text}
-                                                </div>
-                                            ))}
+                                            {req.messages.map((m, idx) => {
+                                                const senderId = m.sender ? (m.sender._id || m.sender) : null;
+                                                const isCurrentUser = user && senderId === user.id;
+                                                return (
+                                                    <div key={idx} style={{
+                                                        fontSize: '0.8rem',
+                                                        padding: '0.3rem 0.5rem',
+                                                        background: isCurrentUser ? 'var(--primary)' : 'var(--surface)',
+                                                        borderRadius: '4px',
+                                                        alignSelf: isCurrentUser ? 'flex-end' : 'flex-start',
+                                                        maxWidth: '80%'
+                                                    }}>
+                                                        <strong>{m.name || 'System'}: </strong> {m.text}
+                                                    </div>
+                                                );
+                                            })}
                                         </div>
 
                                         <div style={{ marginTop: '0.5rem', display: 'flex', gap: '0.5rem' }}>
