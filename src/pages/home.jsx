@@ -6,13 +6,38 @@ export default function Home() {
 
   return (
     <main className="home-main">
-      <img src={backgroundImage} alt="Service Home" className="home-full-image" />
-      <div className="home-dark-overlay"></div>
+      <section className="hero-section">
+        <img src={backgroundImage} alt="Service Home" className="hero-image" />
+        <div className="hero-overlay"></div>
+        <div className="hero-content">
+          <h1>Welcome to Service Flash</h1>
+          <p>
+            Fast Support, Instant Solutions, and Real Pros...<br />
+            Service Request is All in One Place.
+          </p>
+        </div>
+      </section>
 
-      <div className="home-overlay">
-        <h1 className="home-title">Welcome to Service Request System</h1>
-        <p className="home-subtitle">Please navigate to the Sales page to view our products.</p>
-      </div>
+      <section className="mission-section">
+        <h2 className="mission-title">Our Mission</h2>
+        <div className="mission-cards-container">
+          <div className="mission-card">
+            <div className="card-icon">⚡</div>
+            <h3>Speed</h3>
+            <p>We believe in the power of "now". Our optimized workflows ensure your requests are handled with urgency and precision.</p>
+          </div>
+          <div className="mission-card">
+            <div className="card-icon">🛡️</div>
+            <h3>Reliability</h3>
+            <p>Trust is our foundation. We vet every service provider to guarantee quality and safety for every interaction.</p>
+          </div>
+          <div className="mission-card">
+            <div className="card-icon">🤝</div>
+            <h3>Customer First</h3>
+            <p>Your satisfaction drives us. Our support team is dedicated to providing a seamless, premium experience.</p>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
