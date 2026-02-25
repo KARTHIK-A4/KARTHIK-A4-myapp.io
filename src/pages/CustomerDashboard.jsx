@@ -172,7 +172,14 @@ export default function CustomerDashboard() {
                                         </div>
                                     )}
                                     {req.rating && (
-                                        <p style={{ marginTop: '1rem', fontSize: '0.8rem', color: 'var(--accent)' }}>You rated: {req.rating} ⭐</p>
+                                        <div style={{ marginTop: '1rem', display: 'flex', gap: '0.2rem', alignItems: 'center' }}>
+                                            <p style={{ fontSize: '0.8rem', color: 'var(--accent)', margin: 0, marginRight: '0.5rem' }}>You rated:</p>
+                                            {[1, 2, 3, 4, 5].map(star => (
+                                                <span key={star} style={{ fontSize: '1rem' }}>
+                                                    {star <= req.rating ? '⭐' : '☆'}
+                                                </span>
+                                            ))}
+                                        </div>
                                     )}
                                 </div>
                             ))

@@ -183,6 +183,23 @@ export default function ProviderDashboard() {
                                 <p style={{ lineHeight: '1.6', color: '#cbd5e1' }}>{selectedRequest.description}</p>
                             </div>
 
+                            {/* Customer Rating */}
+                            {selectedRequest.rating && (
+                                <div style={{ background: '#1e293b', padding: '1.5rem', borderRadius: '12px' }}>
+                                    <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: '#10b981' }}>Customer Rating</h3>
+                                    <div style={{ display: 'flex', gap: '0.5rem', fontSize: '1.5rem' }}>
+                                        {[1, 2, 3, 4, 5].map(star => (
+                                            <span key={star} style={{ color: star <= selectedRequest.rating ? '#fbbf24' : '#475569' }}>
+                                                {star <= selectedRequest.rating ? '⭐' : '☆'}
+                                            </span>
+                                        ))}
+                                    </div>
+                                    {selectedRequest.feedback && (
+                                        <p style={{ marginTop: '1rem', color: '#cbd5e1', fontStyle: 'italic' }}>"{selectedRequest.feedback}"</p>
+                                    )}
+                                </div>
+                            )}
+
                             {/* Attachments */}
                             {selectedRequest.attachments && selectedRequest.attachments.length > 0 && (
                                 <div style={{ background: '#1e293b', padding: '1.5rem', borderRadius: '12px' }}>
