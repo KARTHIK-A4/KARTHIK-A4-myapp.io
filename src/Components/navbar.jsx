@@ -43,7 +43,6 @@ export default function Navbar() {
         {user && user.role === 'customer' && (
           <>
             <Link className="navbar-link" to="/dashboard">My Dashboard</Link>
-            <Link className="navbar-link" to="/service-request">Request Service</Link>
           </>
         )}
 

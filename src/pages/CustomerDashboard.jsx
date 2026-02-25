@@ -8,15 +8,17 @@ export default function CustomerDashboard() {
     const [requests, setRequests] = useState([]);
     const [serviceType, setServiceType] = useState('Hardware Repair');
     const [description, setDescription] = useState('');
+    const [files, setFiles] = useState([]);
     const [loading, setLoading] = useState(true);
     const [activeMessage, setActiveMessage] = useState({ id: null, text: '' });
 
     const services = [
         'Hardware Repair',
         'Software Installation',
-        'Network Setup',
+        'Maintenance',
         'Data Recovery',
-        'Consultation'
+        'Consultation',
+        'Other'
     ];
 
     useEffect(() => {
@@ -35,18 +37,35 @@ export default function CustomerDashboard() {
         }
     };
 
+    const handleFileChange = (e) => {
+        setFiles(e.target.files);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const data = new FormData();
+        data.append('serviceType', serviceType);
+        data.append('description', description);
+        data.append('customerId', user.id);
+        data.append('customerName', user.name);
+
+        for (let i = 0; i < files.length; i++) {
+            data.append('attachments', files[i]);
+        }
+
         try {
-            await axios.post('/requests', {
-                serviceType,
-                description,
-                customerId: user.id,
-                customerName: user.name
+            await axios.post('/requests', data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
             });
             toast.success('Request submitted successfully');
             setServiceType('Hardware Repair');
             setDescription('');
+            setFiles([]);
+            const fileInput = document.getElementById('attachments');
+            if (fileInput) fileInput.value = '';
             fetchRequests();
         } catch (error) {
             toast.error('Failed to submit request');
@@ -80,7 +99,7 @@ export default function CustomerDashboard() {
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: '2rem' }}>
                 {/* New Request Form */}
                 <div className="glass-card">
-                    <h2>Create New Request</h2>
+                    <h2>Request Service</h2>
                     <form onSubmit={handleSubmit} style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                         <div>
                             <label>Service Type</label>
@@ -98,7 +117,19 @@ export default function CustomerDashboard() {
                                 required
                             />
                         </div>
-                        <button type="submit">Submit Request</button>
+                        <div>
+                            <label>Attachments (Images, Videos, Docs):</label>
+                            <br />
+                            <input
+                                type="file"
+                                id="attachments"
+                                multiple
+                                onChange={handleFileChange}
+                                accept="image/*,video/*,.pdf,.doc,.docx"
+                                style={{ width: '100%', padding: '0.5rem', marginTop: '0.5rem' }}
+                            />
+                        </div>
+                        <button type="submit" style={{ marginTop: '0.5rem' }}>Submit Request</button>
                     </form>
                 </div>
 

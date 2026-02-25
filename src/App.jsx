@@ -16,7 +16,6 @@ import ProviderDashboard from "./pages/ProviderDashboard";
 import Sales from "./pages/Sales";
 import AboutUs from "./pages/AboutUs";
 import Footer from "./Components/Footer";
-import ServiceRequest from "./pages/ServiceRequest";
 
 function App() {
   return (
@@ -35,7 +34,6 @@ function App() {
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/provider" element={<ProviderDashboard />} />
-            <Route path="/service-request" element={<ServiceRequest />} />
           </Routes>
         </div>
       </CartProvider>
