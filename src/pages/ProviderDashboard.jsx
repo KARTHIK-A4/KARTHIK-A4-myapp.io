@@ -47,8 +47,8 @@ export default function ProviderDashboard() {
         if (!messageText.trim()) return;
         try {
             await axios.post(`/requests/${id}/messages`, {
-                senderId: user.id,
-                senderName: user.name || 'Provider',
+                senderId: user?.id,
+                senderName: user?.name || 'Provider',
                 text: messageText
             });
             setMessageText('');
@@ -231,24 +231,24 @@ export default function ProviderDashboard() {
                             <div style={{ background: '#1e293b', padding: '1.5rem', borderRadius: '12px', flex: 1, display: 'flex', flexDirection: 'column' }}>
                                 <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: '#10b981' }}>Communication</h3>
                                 <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '1rem', paddingRight: '0.5rem' }}>
-                                    {selectedRequest.messages.map((msg, idx) => (
+                                    {selectedRequest.messages && selectedRequest.messages.map((msg, idx) => (
                                         <div
                                             key={idx}
                                             style={{
-                                                alignSelf: (msg.sender?._id || msg.sender) === user.id ? 'flex-end' : 'flex-start',
+                                                alignSelf: (msg.sender?._id || msg.sender) === user?.id ? 'flex-end' : 'flex-start',
                                                 maxWidth: '70%'
                                             }}
                                         >
                                             <div style={{
-                                                background: (msg.sender?._id || msg.sender) === user.id ? '#10b981' : '#334155',
+                                                background: (msg.sender?._id || msg.sender) === user?.id ? '#10b981' : '#334155',
                                                 padding: '0.75rem 1rem',
                                                 borderRadius: '12px',
-                                                borderBottomRightRadius: (msg.sender?._id || msg.sender) === user.id ? '2px' : '12px',
-                                                borderBottomLeftRadius: (msg.sender?._id || msg.sender) !== user.id ? '2px' : '12px',
+                                                borderBottomRightRadius: (msg.sender?._id || msg.sender) === user?.id ? '2px' : '12px',
+                                                borderBottomLeftRadius: (msg.sender?._id || msg.sender) !== user?.id ? '2px' : '12px',
                                             }}>
                                                 <p style={{ margin: 0 }}>{msg.text}</p>
                                             </div>
-                                            <span style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '0.25rem', display: 'block', textAlign: (msg.sender?._id || msg.sender) === user.id ? 'right' : 'left' }}>
+                                            <span style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '0.25rem', display: 'block', textAlign: (msg.sender?._id || msg.sender) === user?.id ? 'right' : 'left' }}>
                                                 {msg.name}
                                             </span>
                                         </div>
