@@ -10,6 +10,7 @@ export default function ProviderDashboard() {
     const [selectedRequest, setSelectedRequest] = useState(null);
     const [loading, setLoading] = useState(true);
     const [messageText, setMessageText] = useState('');
+    const [filterStatus, setFilterStatus] = useState('All');
 
     useEffect(() => {
         fetchRequests();
@@ -70,20 +71,42 @@ export default function ProviderDashboard() {
         return path.split(/[/\\]/).pop();
     };
 
+    const filteredRequests = requests.filter(req => filterStatus === 'All' || req.status === filterStatus);
+
     return (
         <div style={{ height: 'calc(100vh - 80px)', display: 'flex', background: '#0f172a', color: 'white', overflow: 'hidden' }}>
             {/* Sidebar List */}
             <div style={{ width: '350px', borderRight: '1px solid #334155', display: 'flex', flexDirection: 'column' }}>
                 <div style={{ padding: '1.5rem', borderBottom: '1px solid #334155' }}>
                     <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#10b981' }}>Provider Dashboard</h2>
-                    <p style={{ fontSize: '0.875rem', color: '#94a3b8' }}>{requests.length} Available Requests</p>
+                    <p style={{ fontSize: '0.875rem', color: '#94a3b8', marginBottom: '1rem' }}>{filteredRequests.length} Requests</p>
+                    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                        {['All', 'Requested', 'Accepted', 'Completed', 'Cancelled'].map(status => (
+                            <button
+                                key={status}
+                                onClick={() => setFilterStatus(status)}
+                                style={{
+                                    padding: '0.25rem 0.75rem',
+                                    fontSize: '0.75rem',
+                                    borderRadius: '999px',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                    background: filterStatus === status ? '#10b981' : '#1e293b',
+                                    color: filterStatus === status ? 'white' : '#94a3b8',
+                                    transition: 'all 0.2s'
+                                }}
+                            >
+                                {status}
+                            </button>
+                        ))}
+                    </div>
                 </div>
 
                 <div style={{ overflowY: 'auto', flex: 1 }}>
                     {loading ? (
                         <div style={{ padding: '2rem', textAlign: 'center', color: '#94a3b8' }}>Loading...</div>
                     ) : (
-                        requests.map(req => (
+                        filteredRequests.map(req => (
                             <div
                                 key={req._id}
                                 onClick={() => setSelectedRequest(req)}
@@ -134,14 +157,21 @@ export default function ProviderDashboard() {
                                     disabled={selectedRequest.status === 'Accepted'}
                                     style={{ padding: '0.5rem 1rem', background: '#10b981', border: 'none', borderRadius: '6px', color: 'white', cursor: 'pointer', opacity: selectedRequest.status === 'Accepted' ? 0.5 : 1 }}
                                 >
-                                    Accept Request
+                                    Accept
                                 </button>
                                 <button
                                     onClick={() => handleStatusUpdate(selectedRequest._id, 'Completed')}
                                     disabled={selectedRequest.status === 'Completed'}
                                     style={{ padding: '0.5rem 1rem', background: '#3b82f6', border: 'none', borderRadius: '6px', color: 'white', cursor: 'pointer', opacity: selectedRequest.status === 'Completed' ? 0.5 : 1 }}
                                 >
-                                    Mark Completed
+                                    Complete
+                                </button>
+                                <button
+                                    onClick={() => handleStatusUpdate(selectedRequest._id, 'Cancelled')}
+                                    disabled={selectedRequest.status === 'Cancelled'}
+                                    style={{ padding: '0.5rem 1rem', background: '#ef4444', border: 'none', borderRadius: '6px', color: 'white', cursor: 'pointer', opacity: selectedRequest.status === 'Cancelled' ? 0.5 : 1 }}
+                                >
+                                    Cancel
                                 </button>
                             </div>
                         </div>
