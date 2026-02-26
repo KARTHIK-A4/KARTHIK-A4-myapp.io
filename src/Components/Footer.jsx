@@ -7,7 +7,6 @@ const Footer = () => {
         <footer style={styles.footer}>
             <div style={styles.container}>
                 <h3 style={styles.brand}>Service Request System</h3>
-                <Link to="/about" style={styles.link}>About Us</Link>
                 <div style={styles.socials}>
                     <a
                         href="https://www.linkedin.com"

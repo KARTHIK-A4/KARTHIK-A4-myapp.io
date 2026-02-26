@@ -14,7 +14,6 @@ import Cart from "./pages/cart";
 import ProviderDashboard from "./pages/ProviderDashboard";
 
 import Sales from "./pages/Sales";
-import AboutUs from "./pages/AboutUs";
 import Footer from "./Components/Footer";
 
 function App() {
@@ -27,7 +26,6 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/sales" element={<Sales />} />
-            <Route path="/about" element={<AboutUs />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<CustomerDashboard />} />
