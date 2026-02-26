@@ -24,12 +24,18 @@ export default function CustomerDashboard() {
     useEffect(() => {
         if (user) {
             fetchRequests();
+            const interval = setInterval(fetchRequests, 3000);
+            return () => clearInterval(interval);
         }
     }, [user]);
 
     const fetchRequests = async () => {
+        if (!user) return;
+        const userId = user.id || user._id;
+        if (!userId) return;
+
         try {
-            const { data } = await axios.get(`/requests?role=customer&id=${user.id}`);
+            const { data } = await axios.get(`/requests?role=customer&id=${userId}`);
             setRequests(data);
             setLoading(false);
         } catch (error) {
@@ -47,7 +53,7 @@ export default function CustomerDashboard() {
         const data = new FormData();
         data.append('serviceType', serviceType);
         data.append('description', description);
-        data.append('customerId', user.id);
+        data.append('customerId', user.id || user._id);
         data.append('customerName', user.name);
 
         for (let i = 0; i < files.length; i++) {
@@ -76,7 +82,7 @@ export default function CustomerDashboard() {
         if (!activeMessage.text) return;
         try {
             await axios.post(`/requests/${id}/messages`, {
-                senderId: user.id,
+                senderId: user.id || user._id,
                 senderName: user.name,
                 text: activeMessage.text
             });
@@ -156,7 +162,7 @@ export default function CustomerDashboard() {
                                         <div style={{ maxHeight: '120px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '0.4rem', padding: '0.5rem', background: 'rgba(0,0,0,0.1)', borderRadius: '8px' }}>
                                             {req.messages.map((m, idx) => {
                                                 const senderId = m.sender ? (m.sender._id || m.sender) : null;
-                                                const isCurrentUser = user && senderId === user.id;
+                                                const isCurrentUser = user && senderId === (user.id || user._id);
                                                 return (
                                                     <div key={idx} style={{
                                                         fontSize: '0.8rem',

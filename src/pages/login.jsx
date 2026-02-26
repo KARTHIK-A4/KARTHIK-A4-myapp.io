@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { useNavigate, Link } from 'react-router-dom';
 import { FiMail, FiLock, FiLogIn } from 'react-icons/fi';
+import { UserContext } from '../context/usercontext';
 import '../assets/styles/login.css';
 
 export default function Login() {
+  const { setUser } = useContext(UserContext);
   const navigate = useNavigate();
   const [data, setData] = useState({
     email: '',
@@ -26,6 +28,7 @@ export default function Login() {
         toast.error(response.error);
       } else {
         setData({ email: '', password: '' });
+        setUser(response); // update the global user state before navigation
         toast.success("Welcome back!");
         if (response.role === 'admin') {
           navigate('/admin');

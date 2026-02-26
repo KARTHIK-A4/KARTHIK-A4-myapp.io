@@ -14,7 +14,7 @@ export default function ProviderDashboard() {
 
     useEffect(() => {
         fetchRequests();
-        const interval = setInterval(fetchRequests, 5000);
+        const interval = setInterval(fetchRequests, 3000);
         return () => clearInterval(interval);
     }, []);
 
@@ -24,10 +24,11 @@ export default function ProviderDashboard() {
             const { data } = await axios.get('/requests?role=provider');
             setRequests(data);
             setLoading(false);
-            if (selectedRequest) {
-                const updated = data.find(r => r._id === selectedRequest._id);
-                if (updated) setSelectedRequest(updated);
-            }
+            setSelectedRequest(prev => {
+                if (!prev) return prev;
+                const updated = data.find(r => r._id === prev._id);
+                return updated || prev;
+            });
         } catch (error) {
             console.error('Failed to fetch requests');
         }
@@ -47,7 +48,7 @@ export default function ProviderDashboard() {
         if (!messageText.trim()) return;
         try {
             await axios.post(`/requests/${id}/messages`, {
-                senderId: user?.id,
+                senderId: user?.id || user?._id,
                 senderName: user?.name || 'Provider',
                 text: messageText
             });

@@ -13,7 +13,7 @@ export default function AdminDashboard() {
 
     useEffect(() => {
         fetchRequests();
-        const interval = setInterval(fetchRequests, 5000);
+        const interval = setInterval(fetchRequests, 3000);
         return () => clearInterval(interval);
     }, []);
 
@@ -23,10 +23,11 @@ export default function AdminDashboard() {
             setRequests(data);
             setLoading(false);
             // Update selected request if it exists to show new messages
-            if (selectedRequest) {
-                const updated = data.find(r => r._id === selectedRequest._id);
-                if (updated) setSelectedRequest(updated);
-            }
+            setSelectedRequest(prev => {
+                if (!prev) return prev;
+                const updated = data.find(r => r._id === prev._id);
+                return updated || prev;
+            });
         } catch (error) {
             console.error('Failed to fetch requests');
         }
@@ -46,7 +47,7 @@ export default function AdminDashboard() {
         if (!messageText.trim()) return;
         try {
             await axios.post(`/requests/${id}/messages`, {
-                senderId: user.id,
+                senderId: user?.id || user?._id,
                 senderName: 'Admin',
                 text: messageText
             });
@@ -191,28 +192,34 @@ export default function AdminDashboard() {
                             <div style={{ background: '#1e293b', padding: '1.5rem', borderRadius: '12px', flex: 1, display: 'flex', flexDirection: 'column' }}>
                                 <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: '#38bdf8' }}>Communication</h3>
                                 <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '1rem', paddingRight: '0.5rem' }}>
-                                    {selectedRequest.messages.map((msg, idx) => (
-                                        <div
-                                            key={idx}
-                                            style={{
-                                                alignSelf: (msg.sender?._id || msg.sender) === user.id ? 'flex-end' : 'flex-start',
-                                                maxWidth: '70%'
-                                            }}
-                                        >
-                                            <div style={{
-                                                background: (msg.sender?._id || msg.sender) === user.id ? '#3b82f6' : '#334155',
-                                                padding: '0.75rem 1rem',
-                                                borderRadius: '12px',
-                                                borderBottomRightRadius: (msg.sender?._id || msg.sender) === user.id ? '2px' : '12px',
-                                                borderBottomLeftRadius: (msg.sender?._id || msg.sender) !== user.id ? '2px' : '12px',
-                                            }}>
-                                                <p style={{ margin: 0 }}>{msg.text}</p>
+                                    {selectedRequest.messages && selectedRequest.messages.map((msg, idx) => {
+                                        if (!msg) return null;
+                                        const senderId = msg.sender ? (msg.sender._id || msg.sender) : null;
+                                        const isCurrentUser = user && senderId === user.id;
+
+                                        return (
+                                            <div
+                                                key={idx}
+                                                style={{
+                                                    alignSelf: isCurrentUser ? 'flex-end' : 'flex-start',
+                                                    maxWidth: '70%'
+                                                }}
+                                            >
+                                                <div style={{
+                                                    background: isCurrentUser ? '#3b82f6' : '#334155',
+                                                    padding: '0.75rem 1rem',
+                                                    borderRadius: '12px',
+                                                    borderBottomRightRadius: isCurrentUser ? '2px' : '12px',
+                                                    borderBottomLeftRadius: !isCurrentUser ? '2px' : '12px',
+                                                }}>
+                                                    <p style={{ margin: 0 }}>{msg.text}</p>
+                                                </div>
+                                                <span style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '0.25rem', display: 'block', textAlign: isCurrentUser ? 'right' : 'left' }}>
+                                                    {msg.name || 'System'}
+                                                </span>
                                             </div>
-                                            <span style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '0.25rem', display: 'block', textAlign: (msg.sender?._id || msg.sender) === user.id ? 'right' : 'left' }}>
-                                                {msg.name}
-                                            </span>
-                                        </div>
-                                    ))}
+                                        )
+                                    })}
                                 </div>
                                 <div style={{ display: 'flex', gap: '0.5rem' }}>
                                     <input
