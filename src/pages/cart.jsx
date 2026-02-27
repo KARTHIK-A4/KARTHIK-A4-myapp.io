@@ -26,8 +26,8 @@ export default function Cart() {
                 await axios.post('/requests', {
                     serviceType: item.name,
                     description: `Order for ${item.name} - ${item.specs || 'No specs provided'}`,
-                    customerId: user.id,
-                    customerName: user.name
+                    customerId: user?.id || user?._id,
+                    customerName: user?.name
                 });
             }
 
