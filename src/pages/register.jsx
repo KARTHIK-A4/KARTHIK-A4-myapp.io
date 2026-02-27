@@ -96,28 +96,28 @@ export default function Register() {
           </div>
         </div>
 
-        <div className="input-group" style={{ marginBottom: '15px' }}>
-          <label style={{ display: 'block', marginBottom: '10px' }}>I am a</label>
-          <div style={{ display: 'flex', gap: '20px', color: '#fff' }}>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontWeight: 'normal' }}>
+        <div className="input-group role-selection-group">
+          <label className="role-selection-label">I am a</label>
+          <div className="role-options">
+            <label className="role-option-label">
               <input
                 type="radio"
                 name="role"
                 value="customer"
                 checked={data.role === 'customer'}
                 onChange={(e) => setData({ ...data, role: e.target.value })}
-                style={{ cursor: 'pointer', width: 'auto' }}
+                className="role-option-input"
               />
               Customer
             </label>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontWeight: 'normal' }}>
+            <label className="role-option-label">
               <input
                 type="radio"
                 name="role"
                 value="provider"
                 checked={data.role === 'provider'}
                 onChange={(e) => setData({ ...data, role: e.target.value })}
-                style={{ cursor: 'pointer', width: 'auto' }}
+                className="role-option-input"
               />
               Provider
             </label>

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { UserContext } from '../context/usercontext';
 import { toast } from 'react-hot-toast';
 import { FaFilePdf, FaFileWord, FaFileAlt, FaVideo, FaImage } from 'react-icons/fa';
+import '../assets/styles/ProviderDashboard.css';
 
 export default function ProviderDashboard() {
     const { user } = useContext(UserContext);
@@ -75,27 +76,18 @@ export default function ProviderDashboard() {
     const filteredRequests = requests.filter(req => filterStatus === 'All' || req.status === filterStatus);
 
     return (
-        <div style={{ height: 'calc(100vh - 80px)', display: 'flex', background: '#0f172a', color: 'white', overflow: 'hidden' }}>
+        <div className="provider-dashboard-container">
             {/* Sidebar List */}
-            <div style={{ width: '350px', borderRight: '1px solid #334155', display: 'flex', flexDirection: 'column' }}>
-                <div style={{ padding: '1.5rem', borderBottom: '1px solid #334155' }}>
-                    <h2 style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#10b981' }}>Provider Dashboard</h2>
-                    <p style={{ fontSize: '0.875rem', color: '#94a3b8', marginBottom: '1rem' }}>{filteredRequests.length} Requests</p>
-                    <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+            <div className="provider-sidebar">
+                <div className="provider-sidebar-header">
+                    <h2 className="provider-sidebar-title">Provider Dashboard</h2>
+                    <p className="provider-sidebar-stats">{filteredRequests.length} Requests</p>
+                    <div className="provider-filter-container">
                         {['All', 'Requested', 'Accepted', 'Completed', 'Cancelled'].map(status => (
                             <button
                                 key={status}
                                 onClick={() => setFilterStatus(status)}
-                                style={{
-                                    padding: '0.25rem 0.75rem',
-                                    fontSize: '0.75rem',
-                                    borderRadius: '999px',
-                                    border: 'none',
-                                    cursor: 'pointer',
-                                    background: filterStatus === status ? '#10b981' : '#1e293b',
-                                    color: filterStatus === status ? 'white' : '#94a3b8',
-                                    transition: 'all 0.2s'
-                                }}
+                                className={`provider-filter-btn ${filterStatus === status ? 'active' : 'inactive'}`}
                             >
                                 {status}
                             </button>
@@ -103,35 +95,23 @@ export default function ProviderDashboard() {
                     </div>
                 </div>
 
-                <div style={{ overflowY: 'auto', flex: 1 }}>
+                <div className="provider-request-list">
                     {loading ? (
-                        <div style={{ padding: '2rem', textAlign: 'center', color: '#94a3b8' }}>Loading...</div>
+                        <div className="provider-loading">Loading...</div>
                     ) : (
                         filteredRequests.map(req => (
                             <div
                                 key={req._id}
                                 onClick={() => setSelectedRequest(req)}
-                                style={{
-                                    padding: '1rem',
-                                    borderBottom: '1px solid #1e293b',
-                                    cursor: 'pointer',
-                                    background: selectedRequest?._id === req._id ? '#1e293b' : 'transparent',
-                                    transition: 'background 0.2s'
-                                }}
+                                className={`provider-request-item ${selectedRequest?._id === req._id ? 'active' : 'inactive'}`}
                             >
-                                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
-                                    <span style={{ fontWeight: '600', color: '#e2e8f0' }}>{req.serviceType}</span>
-                                    <span style={{
-                                        fontSize: '0.75rem',
-                                        padding: '0.1rem 0.5rem',
-                                        borderRadius: '999px',
-                                        background: req.status === 'Completed' ? '#059669' : req.status === 'Cancelled' ? '#dc2626' : '#d97706',
-                                        color: 'white'
-                                    }}>
+                                <div className="provider-request-header">
+                                    <span className="provider-request-type">{req.serviceType}</span>
+                                    <span className={`provider-status-badge ${req.status === 'Completed' ? 'provider-status-completed' : req.status === 'Cancelled' ? 'provider-status-cancelled' : 'provider-status-default'}`}>
                                         {req.status}
                                     </span>
                                 </div>
-                                <p style={{ fontSize: '0.875rem', color: '#94a3b8', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                <p className="provider-request-customer">
                                     {req.customer?.name}
                                 </p>
                             </div>
@@ -141,54 +121,57 @@ export default function ProviderDashboard() {
             </div>
 
             {/* Main Content Area */}
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#0f172a' }}>
+            <div className="provider-main-content">
                 {selectedRequest ? (
                     <>
                         {/* Header */}
-                        <div style={{ padding: '1.5rem', borderBottom: '1px solid #334155', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#1e293b' }}>
+                        <div className="provider-detail-header">
                             <div>
-                                <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{selectedRequest.serviceType}</h2>
-                                <p style={{ color: '#94a3b8' }}>
-                                    Customer: <span style={{ color: '#e2e8f0' }}>{selectedRequest.customer?.name} ({selectedRequest.customer?.email})</span>
+                                <h2 className="provider-detail-title">{selectedRequest.serviceType}</h2>
+                                <p className="provider-detail-customer">
+                                    Customer: <span>{selectedRequest.customer?.name} ({selectedRequest.customer?.email})</span>
                                 </p>
                             </div>
-                            <div style={{ display: 'flex', gap: '0.5rem' }}>
+                            <div className="provider-action-buttons">
                                 <button
                                     onClick={() => handleStatusUpdate(selectedRequest._id, 'Accepted')}
                                     disabled={selectedRequest.status === 'Accepted'}
-                                    style={{ padding: '0.5rem 1rem', background: '#10b981', border: 'none', borderRadius: '6px', color: 'white', cursor: 'pointer', opacity: selectedRequest.status === 'Accepted' ? 0.5 : 1 }}
+                                    className="provider-action-btn provider-btn-accept"
+                                    style={{ opacity: selectedRequest.status === 'Accepted' ? 0.5 : 1 }}
                                 >
                                     Accept
                                 </button>
                                 <button
                                     onClick={() => handleStatusUpdate(selectedRequest._id, 'Completed')}
                                     disabled={selectedRequest.status === 'Completed'}
-                                    style={{ padding: '0.5rem 1rem', background: '#3b82f6', border: 'none', borderRadius: '6px', color: 'white', cursor: 'pointer', opacity: selectedRequest.status === 'Completed' ? 0.5 : 1 }}
+                                    className="provider-action-btn provider-btn-complete"
+                                    style={{ opacity: selectedRequest.status === 'Completed' ? 0.5 : 1 }}
                                 >
                                     Complete
                                 </button>
                                 <button
                                     onClick={() => handleStatusUpdate(selectedRequest._id, 'Cancelled')}
                                     disabled={selectedRequest.status === 'Cancelled'}
-                                    style={{ padding: '0.5rem 1rem', background: '#ef4444', border: 'none', borderRadius: '6px', color: 'white', cursor: 'pointer', opacity: selectedRequest.status === 'Cancelled' ? 0.5 : 1 }}
+                                    className="provider-action-btn provider-btn-cancel"
+                                    style={{ opacity: selectedRequest.status === 'Cancelled' ? 0.5 : 1 }}
                                 >
                                     Cancel
                                 </button>
                             </div>
                         </div>
 
-                        <div style={{ flex: 1, overflowY: 'auto', padding: '2rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+                        <div className="provider-detail-body">
                             {/* Description */}
-                            <div style={{ background: '#1e293b', padding: '1.5rem', borderRadius: '12px' }}>
-                                <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: '#10b981' }}>Customer Issue Description</h3>
-                                <p style={{ lineHeight: '1.6', color: '#cbd5e1' }}>{selectedRequest.description}</p>
+                            <div className="provider-section-card">
+                                <h3 className="provider-section-title">Customer Issue Description</h3>
+                                <p className="provider-description-text">{selectedRequest.description}</p>
                             </div>
 
                             {/* Customer Rating */}
                             {selectedRequest.rating && (
-                                <div style={{ background: '#1e293b', padding: '1.5rem', borderRadius: '12px' }}>
-                                    <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: '#10b981' }}>Customer Rating</h3>
-                                    <div style={{ display: 'flex', gap: '0.5rem', fontSize: '1.5rem' }}>
+                                <div className="provider-section-card">
+                                    <h3 className="provider-section-title">Customer Rating</h3>
+                                    <div className="provider-rating-stars">
                                         {[1, 2, 3, 4, 5].map(star => (
                                             <span key={star} style={{ color: star <= selectedRequest.rating ? '#fbbf24' : '#475569' }}>
                                                 {star <= selectedRequest.rating ? '⭐' : '☆'}
@@ -196,30 +179,30 @@ export default function ProviderDashboard() {
                                         ))}
                                     </div>
                                     {selectedRequest.feedback && (
-                                        <p style={{ marginTop: '1rem', color: '#cbd5e1', fontStyle: 'italic' }}>"{selectedRequest.feedback}"</p>
+                                        <p className="provider-feedback-text">"{selectedRequest.feedback}"</p>
                                     )}
                                 </div>
                             )}
 
                             {/* Attachments */}
                             {selectedRequest.attachments && selectedRequest.attachments.length > 0 && (
-                                <div style={{ background: '#1e293b', padding: '1.5rem', borderRadius: '12px' }}>
-                                    <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: '#10b981' }}>Provided Attachments</h3>
-                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: '1rem' }}>
+                                <div className="provider-section-card">
+                                    <h3 className="provider-section-title">Provided Attachments</h3>
+                                    <div className="provider-attachments-grid">
                                         {selectedRequest.attachments.map((path, idx) => (
-                                            <div key={idx} style={{ position: 'relative', borderRadius: '8px', overflow: 'hidden', border: '1px solid #334155' }}>
+                                            <div key={idx} className="provider-attachment-item">
                                                 {path.match(/\.(jpeg|jpg|png|gif)$/i) ? (
                                                     <a href={`http://localhost:8000/${path}`} target="_blank" rel="noopener noreferrer">
-                                                        <img src={`http://localhost:8000/${path}`} alt="attachment" style={{ width: '100%', height: '120px', objectFit: 'cover' }} />
+                                                        <img src={`http://localhost:8000/${path}`} alt="attachment" className="provider-attachment-img" />
                                                     </a>
                                                 ) : path.match(/\.(mp4|mov|avi)$/i) ? (
-                                                    <video controls style={{ width: '100%', height: '120px', objectFit: 'cover' }}>
+                                                    <video controls className="provider-attachment-video">
                                                         <source src={`http://localhost:8000/${path}`} />
                                                     </video>
                                                 ) : (
-                                                    <a href={`http://localhost:8000/${path}`} target="_blank" rel="noopener noreferrer" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '120px', background: '#0f172a', textDecoration: 'none', color: 'white' }}>
-                                                        <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>{getFileIcon(path)}</div>
-                                                        <span style={{ fontSize: '0.75rem', padding: '0 0.5rem', textAlign: 'center', wordBreak: 'break-all' }}>{getFileName(path)}</span>
+                                                    <a href={`http://localhost:8000/${path}`} target="_blank" rel="noopener noreferrer" className="provider-attachment-doc">
+                                                        <div className="provider-doc-icon">{getFileIcon(path)}</div>
+                                                        <span className="provider-doc-name">{getFileName(path)}</span>
                                                     </a>
                                                 )}
                                             </div>
@@ -229,44 +212,36 @@ export default function ProviderDashboard() {
                             )}
 
                             {/* Messages */}
-                            <div style={{ background: '#1e293b', padding: '1.5rem', borderRadius: '12px', flex: 1, display: 'flex', flexDirection: 'column' }}>
-                                <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: '#10b981' }}>Communication</h3>
-                                <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '1rem', marginBottom: '1rem', paddingRight: '0.5rem' }}>
+                            <div className="provider-chat-section">
+                                <h3 className="provider-section-title">Communication</h3>
+                                <div className="provider-chat-messages">
                                     {selectedRequest.messages && selectedRequest.messages.map((msg, idx) => (
                                         <div
                                             key={idx}
-                                            style={{
-                                                alignSelf: (msg.sender?._id || msg.sender) === user?.id ? 'flex-end' : 'flex-start',
-                                                maxWidth: '70%'
-                                            }}
+                                            className="provider-message-wrapper"
+                                            style={{ alignSelf: (msg.sender?._id || msg.sender) === user?.id ? 'flex-end' : 'flex-start' }}
                                         >
-                                            <div style={{
-                                                background: (msg.sender?._id || msg.sender) === user?.id ? '#10b981' : '#334155',
-                                                padding: '0.75rem 1rem',
-                                                borderRadius: '12px',
-                                                borderBottomRightRadius: (msg.sender?._id || msg.sender) === user?.id ? '2px' : '12px',
-                                                borderBottomLeftRadius: (msg.sender?._id || msg.sender) !== user?.id ? '2px' : '12px',
-                                            }}>
-                                                <p style={{ margin: 0 }}>{msg.text}</p>
+                                            <div className={`provider-message-bubble ${(msg.sender?._id || msg.sender) === user?.id ? 'sent' : 'received'}`}>
+                                                <p className="provider-message-text">{msg.text}</p>
                                             </div>
-                                            <span style={{ fontSize: '0.75rem', color: '#94a3b8', marginTop: '0.25rem', display: 'block', textAlign: (msg.sender?._id || msg.sender) === user?.id ? 'right' : 'left' }}>
+                                            <span className="provider-message-sender" style={{ textAlign: (msg.sender?._id || msg.sender) === user?.id ? 'right' : 'left' }}>
                                                 {msg.name}
                                             </span>
                                         </div>
                                     ))}
                                 </div>
-                                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                <div className="provider-chat-input-area">
                                     <input
                                         type="text"
                                         value={messageText}
                                         onChange={(e) => setMessageText(e.target.value)}
                                         placeholder="Type a message to the customer..."
-                                        style={{ flex: 1, padding: '0.75rem', borderRadius: '8px', border: '1px solid #334155', background: '#0f172a', color: 'white' }}
+                                        className="provider-chat-input"
                                         onKeyPress={(e) => e.key === 'Enter' && handleSendMessage(selectedRequest._id)}
                                     />
                                     <button
                                         onClick={() => handleSendMessage(selectedRequest._id)}
-                                        style={{ padding: '0 1.5rem', background: '#10b981', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}
+                                        className="provider-chat-send-btn"
                                     >
                                         Send
                                     </button>
@@ -275,9 +250,9 @@ export default function ProviderDashboard() {
                         </div>
                     </>
                 ) : (
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: '#64748b' }}>
-                        <div style={{ textAlign: 'center' }}>
-                            <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#10b981' }}>Select a Request to Provide Service</h3>
+                    <div className="provider-empty-state">
+                        <div>
+                            <h3 className="provider-empty-title">Select a Request to Provide Service</h3>
                             <p>Choose a customer service request from the sidebar to view details and accept it.</p>
                         </div>
                     </div>
