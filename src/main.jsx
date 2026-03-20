@@ -10,7 +10,7 @@ axios.defaults.withCredentials = true;
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <Router basename="/myapp">
+    <Router>
       <App />
     </Router>
   </StrictMode>,
